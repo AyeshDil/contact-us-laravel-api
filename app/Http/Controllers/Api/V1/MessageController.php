@@ -1,19 +1,32 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
 use App\Models\Message;
+use Illuminate\Http\Request;
+use Symfony\Component\Mime\MessageConverter;
 
 class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        
+        // $includeInvoices = $request->query('includeMessages');
+
+        $messages = Message::all();
+
+        // if ($includeInvoices) {
+        //     $messages = $messages->with('invoices');
+        // }
+
+        // return new InvoiceCollection($invoices->appends($request->query()));
+        return new MessageController($messages->appends($request->query()));
     }
 
     /**

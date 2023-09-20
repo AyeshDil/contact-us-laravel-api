@@ -1,19 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Filters\V1\ReplyFilter;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreReplyRequest;
 use App\Http\Requests\UpdateReplyRequest;
+use App\Http\Resources\V1\ReplyCollection;
 use App\Models\Reply;
+use Illuminate\Http\Request;
 
 class ReplyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $filter = new ReplyFilter();
+        $filteredReplies = $filter->transform($request);
+        
+        $replies = Reply::where($filteredReplies);
+        return new ReplyCollection($replies->paginate()->appends($request->query()));
+
     }
 
     /**

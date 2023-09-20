@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\V1\GuestController;
+use App\Http\Controllers\Api\V1\ReplyController;
+use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +19,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// Api/V1
+Route::group(['prefix' => 'v1', 'namespace' =>''], function(){
+    Route::apiResource('/users', UserController::class);
+    Route::apiResource('/guests', GuestController::class);
+    Route::apiResource('/replies', ReplyController::class);
+    // Route::apiResource('/users', UserController::class);
+    // Route::apiResource('/users', UserController::class);
 });

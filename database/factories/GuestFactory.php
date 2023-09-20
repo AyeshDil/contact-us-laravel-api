@@ -17,7 +17,7 @@ class GuestFactory extends Factory
     public function definition(): array
     {
         return [
-            'fist_name' => $this->faker->firstName(),
+            'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'email' => $this->faker->email(),
             'contact_number' =>$this->faker->phoneNumber()
